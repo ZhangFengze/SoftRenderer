@@ -40,6 +40,11 @@ namespace render
     template<typename Func>
     void Triangle0(const Vector2& a, const Vector2& b, const Vector2& c, Func func)
     {
+        float a_bc = (a - b).Cross(b - c);
+        float b_ac = (b - a).Cross(a - c);
+        if (AlmostZero(a_bc) || AlmostZero(b_ac))
+            return;
+
         float xMin = std::min({ a.x,b.x,c.x });
         float xMax = std::max({ a.x,b.x,c.x });
         float yMin = std::min({ a.y,b.y,c.y });
@@ -49,10 +54,6 @@ namespace render
         {
             for (float y = std::floor(yMin) + 0.5f;y < yMax + 0.5;++y)
             {
-                float a_bc = (a - b).Cross(b - c);
-                float b_ac = (b - a).Cross(a - c);
-                if (AlmostZero(a_bc) || AlmostZero(b_ac))
-                    continue;
                 Vector2 p{ x,y };
                 float barycentricA = (p - b).Cross(b - c) / a_bc;
                 if (barycentricA < 0 || barycentricA>1)
