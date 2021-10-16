@@ -138,6 +138,22 @@ namespace render
         }
     };
 
+    template<>
+    struct Vector<4>
+    {
+        union
+        {
+            float data[4];
+            struct { float x, y, z, w; };
+            struct { float r, g, b, a; };
+        };
+
+        float& operator[](std::size_t idx) { return data[idx]; }
+        float operator[](std::size_t idx) const { return data[idx]; }
+        float Dot(const Vector<4>& other) const { return render::Dot(*this, other); }
+    };
+
     using Vector2 = Vector<2>;
     using Vector3 = Vector<3>;
+    using Vector4 = Vector<4>;
 }

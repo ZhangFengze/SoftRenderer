@@ -59,3 +59,26 @@ TEST_CASE("vector3", "[math]")
     REQUIRE(Vector3{ 0,0,3 }.Dot(Vector3{ 1,0,0 }) == 0);
     REQUIRE(Vector3{ 1,2,3 }.Dot(Vector3{ 1,2,3 }) == 14);
 }
+
+TEST_CASE("vector4", "[math]")
+{
+    REQUIRE(Vector4{ 1,2,3,4 } == Vector4{ 1,2,3,4 });
+    REQUIRE(Vector4{ 2,2,3,4 } != Vector4{ 1,2,3,4 });
+
+    REQUIRE(Vector4{ 2,3,4,5 } [0] == 2);
+    REQUIRE(Vector4{ 2,3,4,5 } [1] == 3);
+    REQUIRE(Vector4{ 2,3,4,5 } [2] == 4);
+    REQUIRE(Vector4{ 2,3,4,5 } [3] == 5);
+
+    REQUIRE(Vector4{ 1,1,1,8 } + Vector4{ 2,2,3,1 } == Vector4{ 3,3,4,9 });
+    REQUIRE(Vector4{ 3,-2,10.6f,5 } - Vector4{ 1,1,1,1 } == Vector4{ 2,-3,9.6f,4 });
+    REQUIRE(Vector4{ 3,-2,10.6f,5 } *Vector4{ 3,4,2,3 } == Vector4{ 9,-8,21.2f,15 });
+    REQUIRE(Vector4{ 12,12,12,12 } / Vector4{ 3,4,2,1 } == Vector4{ 4,3,6,12 });
+
+    REQUIRE(Vector4{ 1,2,3,4 } *3 == Vector4{ 3,6,9,12 });
+    REQUIRE(Vector4{ 3,6,9,12 } / 3 == Vector4{ 1,2,3,4 });
+
+    REQUIRE(Vector4{ 1,0,0,0 }.Dot(Vector4{ 1,0,0,0 }) == 1);
+    REQUIRE(Vector4{ 0,0,3,0 }.Dot(Vector4{ 1,0,0,0 }) == 0);
+    REQUIRE(Vector4{ 1,2,3,4 }.Dot(Vector4{ 1,2,3,4 }) == 30);
+}
