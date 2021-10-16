@@ -18,6 +18,11 @@ namespace render
 
         float& operator[](std::size_t idx) { return data[idx]; }
         float operator[](std::size_t idx) const { return data[idx]; }
+
+        Vector<3> Cross(const Vector<3>& other) const
+        {
+            return { y * other.z - z * other.y, z * other.x - x * other.z,x * other.y - y * other.x };
+        }
     };
 
     template<int N>
