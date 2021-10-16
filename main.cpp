@@ -61,7 +61,7 @@ int main(int argc, char* argv[])
 			}
 		}
 		auto r = render::RenderTarget::Create(surface->w, surface->h, { 1,1,1 });
-		Triangle0(Vector2{ 10,10 }, Vector2{ 10,20 }, Vector2{ 50.1,10 },
+		TriangleWireframe0(Vector2{ 10,10 }, Vector2{ 10,20 }, Vector2{ 50.1,10 },
 			[&](const Vector2& pos, const Vector3& barycentric)
 			{
 				r.rgb(pos.x, pos.y) = { 1,0,0 };

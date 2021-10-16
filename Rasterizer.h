@@ -4,6 +4,40 @@
 namespace render
 {
     template<typename Func>
+    void Line0(const Vector2& a, const Vector2& b, Func func)
+    {
+        float xSpan = b.x - a.x;
+        float ySpan = b.y - a.y;
+        float length = std::abs(std::max(std::abs(xSpan), std::abs(ySpan)));
+        if (AlmostZero(length))
+            return;
+
+        float xStep = xSpan / length;
+        float yStep = ySpan / length;
+        float tStep = 1.f / length;
+
+        float x = a.x;
+        float y = a.y;
+        float t = 0.f;
+
+        for (float step = 0;step < length;++step)
+        {
+            func(Vector2{ x,y }, t);
+            x += xStep;
+            y += yStep;
+            t += tStep;
+        }
+    }
+
+    template<typename Func>
+    void TriangleWireframe0(const Vector2& a, const Vector2& b, const Vector2& c, Func func)
+    {
+        Line0(a, b, [&](auto pos, float t) {func(pos, Vector3{ 1 - t,t,0 });});
+        Line0(b, c, [&](auto pos, float t) {func(pos, Vector3{ 0,1 - t,t });});
+        Line0(c, a, [&](auto pos, float t) {func(pos, Vector3{ t,0,1 - t });});
+    }
+
+    template<typename Func>
     void Triangle0(const Vector2& a, const Vector2& b, const Vector2& c, Func func)
     {
         float xMin = std::min({ a.x,b.x,c.x });
