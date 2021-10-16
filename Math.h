@@ -93,6 +93,13 @@ namespace render
     }
 
     template<size_t N>
+    Vector<N> operator*(float f, Vector<N> v)
+    {
+        v *= f;
+        return v;
+    }
+
+    template<size_t N>
     Vector<N> operator/(Vector<N> v, float f)
     {
         v /= f;

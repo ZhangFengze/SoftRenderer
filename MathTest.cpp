@@ -26,6 +26,7 @@ TEST_CASE("vector2", "[math]")
     REQUIRE(Vector2{ 6,3 } / Vector2{ 2,3 } == Vector2{ 3,1 });
 
     REQUIRE(Vector2{ 1,3 } *2 == Vector2{ 2,6 });
+    REQUIRE(2 * Vector2{ 1,3 } == Vector2{ 2,6 });
     REQUIRE(Vector2{ 2,6 } / 2 == Vector2{ 1,3 });
 
     REQUIRE(Vector2{ 0,1 }.Cross(Vector2{ 1,0 }) == -1);
@@ -52,6 +53,7 @@ TEST_CASE("vector3", "[math]")
     REQUIRE(Vector3{ 12,12,12 } / Vector3{ 3,4,2 } == Vector3{ 4,3,6 });
 
     REQUIRE(Vector3{ 1,2,3 } *3 == Vector3{ 3,6,9 });
+    REQUIRE(3 * Vector3{ 1,2,3 } == Vector3{ 3,6,9 });
     REQUIRE(Vector3{ 3,6,9 } / 3 == Vector3{ 1,2,3 });
 
     REQUIRE(Vector3{ 0,0,1 }.Cross(Vector3{ 0,0,1 }) == Vector3{ 0,0,0 });
@@ -79,6 +81,7 @@ TEST_CASE("vector4", "[math]")
     REQUIRE(Vector4{ 12,12,12,12 } / Vector4{ 3,4,2,1 } == Vector4{ 4,3,6,12 });
 
     REQUIRE(Vector4{ 1,2,3,4 } *3 == Vector4{ 3,6,9,12 });
+    REQUIRE(3 * Vector4{ 1,2,3,4 } == Vector4{ 3,6,9,12 });
     REQUIRE(Vector4{ 3,6,9,12 } / 3 == Vector4{ 1,2,3,4 });
 
     REQUIRE(Vector4{ 1,0,0,0 }.Dot(Vector4{ 1,0,0,0 }) == 1);
