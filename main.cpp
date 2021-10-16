@@ -4,68 +4,36 @@
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 
-bool init();
-void close();
-
-SDL_Window* gWindow = NULL;
-SDL_Surface* gScreenSurface = NULL;
-
-bool init()
-{
-	bool success = true;
-
-	if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
-	{
-		printf( "SDL could not initialize! SDL_Error: %s\n", SDL_GetError() );
-		success = false;
-	}
-	else
-	{
-		gWindow = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
-		if( gWindow == NULL )
-		{
-			printf( "Window could not be created! SDL_Error: %s\n", SDL_GetError() );
-			success = false;
-		}
-		else
-		{
-			gScreenSurface = SDL_GetWindowSurface( gWindow );
-		}
-	}
-
-	return success;
-}
-
-void close()
-{
-	SDL_DestroyWindow( gWindow );
-	gWindow = NULL;
-	SDL_Quit();
-}
-
 int main( int argc, char* args[] )
 {
-	if( !init() )
+	SDL_Window* gWindow = NULL;
+	SDL_Surface* gScreenSurface = NULL;
+
+	if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
+		return 1;
+
+	SDL_Window* window = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
+	if(!window)
+		return 1;
+
+	SDL_Surface* surface = SDL_GetWindowSurface( window );
+
+	bool quit = false;
+	SDL_Event e;
+	while( !quit )
 	{
-		printf( "Failed to initialize!\n" );
-	}
-	else
-	{
-		bool quit = false;
-		SDL_Event e;
-		while( !quit )
+		while( SDL_PollEvent( &e ) != 0 )
 		{
-			while( SDL_PollEvent( &e ) != 0 )
+			if( e.type == SDL_QUIT )
 			{
-				if( e.type == SDL_QUIT )
-				{
-					quit = true;
-				}
+				quit = true;
 			}
-            SDL_FillRect(gScreenSurface, NULL, SDL_MapRGB(gScreenSurface->format, 0x00, 0xFF, 0xFF));
-			SDL_UpdateWindowSurface( gWindow );
 		}
+		SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 0x00, 0xFF, 0xFF));
+		SDL_UpdateWindowSurface( window );
 	}
-	close();
+
+	SDL_DestroyWindow( window );
+	SDL_Quit();
 	return 0;
 }
