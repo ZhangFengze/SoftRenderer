@@ -32,30 +32,30 @@ void BlitRenderTarget(const render::RenderTarget& source, SDL_Surface* dest)
 	SDL_FreeSurface(image);
 }
 
-int main( int argc, char* argv[] 
+int main(int argc, char* argv[])
 {
-	if(0!=Catch::Session().run( argc, argv )
+	if (0 != Catch::Session().run(argc, argv))
 		return 1;
 
 	SDL_Window* gWindow = NULL;
 	SDL_Surface* gScreenSurface = NULL;
 
-	if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
+	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 		return 1;
 
-	SDL_Window* window = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
-	if(!window)
+	SDL_Window* window = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+	if (!window)
 		return 1;
 
-	SDL_Surface* surface = SDL_GetWindowSurface( window );
+	SDL_Surface* surface = SDL_GetWindowSurface(window);
 
 	bool quit = false;
 	SDL_Event e;
-	while( !quit )
+	while (!quit)
 	{
-		while( SDL_PollEvent( &e ) != 0 )
+		while (SDL_PollEvent(&e) != 0)
 		{
-			if( e.type == SDL_QUIT )
+			if (e.type == SDL_QUIT)
 			{
 				quit = true;
 			}
@@ -65,7 +65,7 @@ int main( int argc, char* argv[]
 		SDL_UpdateWindowSurface(window);
 	}
 
-	SDL_DestroyWindow( window );
+	SDL_DestroyWindow(window);
 	SDL_Quit();
 	return 0;
 }
