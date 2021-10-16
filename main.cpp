@@ -1,11 +1,16 @@
+#define CATCH_CONFIG_RUNNER
+#include <catch.hpp>
 #include <SDL.h>
 #include <stdio.h>
 
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 
-int main( int argc, char* args[] )
+int main( int argc, char* argv[] )
 {
+	if(0!=Catch::Session().run( argc, argv ))
+		return 1;
+
 	SDL_Window* gWindow = NULL;
 	SDL_Surface* gScreenSurface = NULL;
 
