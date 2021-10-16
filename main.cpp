@@ -8,19 +8,19 @@
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 
-void BlitRenderTarget(const render::RenderTarget& r, SDL_Surface* surface)
+void BlitRenderTarget(const render::RenderTarget& source, SDL_Surface* dest)
 {
-	SDL_Surface* image = SDL_CreateRGBSurfaceWithFormat(0, r.width, r.height, 24, SDL_PIXELFORMAT_RGB24);
+	SDL_Surface* image = SDL_CreateRGBSurfaceWithFormat(0, source.width, source.height, 24, SDL_PIXELFORMAT_RGB24);
 	if (!image)
 		return;
 
 	SDL_LockSurface(image);
-	for (size_t x = 0;x < r.width;++x)
+	for (size_t x = 0;x < source.width;++x)
 	{
-		for (size_t y = 0;y < r.height;++y)
+		for (size_t y = 0;y < source.height;++y)
 		{
-			auto color = r.rgb(x, y);
-			size_t index = (x + y * r.width) * 3;
+			auto color = source.rgb(x, y);
+			size_t index = (x + y * source.width) * 3;
 			((uint8_t*)image->pixels)[index] = render::Clamp((int)color.r * 255, 0, 255);
 			((uint8_t*)image->pixels)[index + 1] = render::Clamp((int)color.g * 255, 0, 255);
 			((uint8_t*)image->pixels)[index + 2] = render::Clamp((int)color.b * 255, 0, 255);
@@ -28,7 +28,7 @@ void BlitRenderTarget(const render::RenderTarget& r, SDL_Surface* surface)
 	}
 	SDL_UnlockSurface(image);
 
-	SDL_BlitScaled(image, NULL, surface, NULL);
+	SDL_BlitScaled(image, NULL, dest, NULL);
 	SDL_FreeSurface(image);
 }
 
