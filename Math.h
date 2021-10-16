@@ -4,7 +4,7 @@
 
 namespace render
 {
-    bool AlmostZero(float f)
+    inline bool AlmostZero(float f)
     {
         return std::abs(f) < std::numeric_limits<float>::epsilon();
     }
