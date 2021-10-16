@@ -37,9 +37,6 @@ int main(int argc, char* argv[])
 	if (0 != Catch::Session().run(argc, argv))
 		return 1;
 
-	SDL_Window* gWindow = NULL;
-	SDL_Surface* gScreenSurface = NULL;
-
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 		return 1;
 
