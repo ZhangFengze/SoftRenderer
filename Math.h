@@ -9,7 +9,7 @@ namespace render
         return std::abs(f) < std::numeric_limits<float>::epsilon();
     }
 
-    template<int N>
+    template<size_t N>
     struct Vector;
 
     template<>
@@ -36,7 +36,7 @@ namespace render
         }
     };
 
-    template<int N>
+    template<size_t N>
     Vector<N>& operator*=(Vector<N>& v, float f)
     {
         for (float& e : v.data)
@@ -44,14 +44,14 @@ namespace render
         return v;
     }
 
-    template<int N>
+    template<size_t N>
     Vector<N>& operator/=(Vector<N>& v, float f)
     {
         assert(!AlmostZero(f));
         return v *= (1.f / f);
     }
 
-    template<int N>
+    template<size_t N>
     bool operator==(const Vector<N>& left, const Vector<N>& right)
     {
         for (int i = 0;i < N;++i)
@@ -60,13 +60,13 @@ namespace render
         return true;
     }
 
-    template<int N>
+    template<size_t N>
     bool operator!=(const Vector<N>& left, const Vector<N>& right)
     {
         return !(left == right);
     }
 
-    template<int N, typename BinaryOperation>
+    template<size_t N, typename BinaryOperation>
     Vector<N> Elementwise(const Vector<N>& left, const Vector<N>& right, BinaryOperation op)
     {
         Vector<N> result;
@@ -75,38 +75,38 @@ namespace render
         return result;
     }
 
-    template<int N>
+    template<size_t N>
     Vector<N> operator+(const Vector<N>& left, const Vector<N>& right)
     {
         return Elementwise(left, right, std::plus{});
     }
 
-    template<int N>
+    template<size_t N>
     Vector<N> operator-(const Vector<N>& left, const Vector<N>& right)
     {
         return Elementwise(left, right, std::minus{});
     }
 
-    template<int N>
+    template<size_t N>
     Vector<N> operator*(const Vector<N>& left, const Vector<N>& right)
     {
         return Elementwise(left, right, std::multiplies{});
     }
 
-    template<int N>
+    template<size_t N>
     Vector<N> operator/(const Vector<N>& left, const Vector<N>& right)
     {
         return Elementwise(left, right, std::divides{});
     }
 
-    template<int N>
+    template<size_t N>
     Vector<N> operator*(Vector<N> v, float f)
     {
         v *= f;
         return v;
     }
 
-    template<int N>
+    template<size_t N>
     Vector<N> operator/(Vector<N> v, float f)
     {
         v /= f;
