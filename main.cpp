@@ -2,13 +2,39 @@
 #include <catch.hpp>
 #include <SDL.h>
 #include <stdio.h>
+#include "Math.h"
+#include "RenderTarget.h"
 
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 
-int main( int argc, char* argv[] )
+void BlitRenderTarget(const render::RenderTarget& r, SDL_Surface* surface)
 {
-	if(0!=Catch::Session().run( argc, argv ))
+	SDL_Surface* image = SDL_CreateRGBSurfaceWithFormat(0, r.width, r.height, 24, SDL_PIXELFORMAT_RGB24);
+	if (!image)
+		return;
+
+	SDL_LockSurface(image);
+	for (size_t x = 0;x < r.width;++x)
+	{
+		for (size_t y = 0;y < r.height;++y)
+		{
+			auto color = r.rgb(x, y);
+			size_t index = (x + y * r.width) * 3;
+			((uint8_t*)image->pixels)[index] = render::Clamp((int)color.r * 255, 0, 255);
+			((uint8_t*)image->pixels)[index + 1] = render::Clamp((int)color.g * 255, 0, 255);
+			((uint8_t*)image->pixels)[index + 2] = render::Clamp((int)color.b * 255, 0, 255);
+		}
+	}
+	SDL_UnlockSurface(image);
+
+	SDL_BlitScaled(image, NULL, surface, NULL);
+	SDL_FreeSurface(image);
+}
+
+int main( int argc, char* argv[] 
+{
+	if(0!=Catch::Session().run( argc, argv )
 		return 1;
 
 	SDL_Window* gWindow = NULL;
@@ -34,8 +60,9 @@ int main( int argc, char* argv[] )
 				quit = true;
 			}
 		}
-		SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 0x00, 0xFF, 0xFF));
-		SDL_UpdateWindowSurface( window );
+		auto r = render::RenderTarget::Create(surface->w, surface->h, { 1,1,1 });
+		BlitRenderTarget(r, surface);
+		SDL_UpdateWindowSurface(window);
 	}
 
 	SDL_DestroyWindow( window );
