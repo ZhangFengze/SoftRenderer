@@ -5,9 +5,9 @@ using namespace render;
 
 TEST_CASE("test", "[math]") {
 
-    REQUIRE(Vector3{ 1,2,3 }[0]==1);
-    REQUIRE(Vector3{ 1,2,3 }[1]==2);
-    REQUIRE(Vector3{ 1,2,3 }[2]==3);
+    REQUIRE(Vector3{ 1,2,3 } [0] == 1);
+    REQUIRE(Vector3{ 1,2,3 } [1] == 2);
+    REQUIRE(Vector3{ 1,2,3 } [2] == 3);
 
     REQUIRE(Vector3{ 1,1,1 } + Vector3{ 2,2,3 } == Vector3{ 3,3,4 });
     REQUIRE(Vector3{ 3,-2,10.6f } - Vector3{ 1,1,1 } == Vector3{ 2,-3,9.6f });
