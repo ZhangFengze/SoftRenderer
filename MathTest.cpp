@@ -9,7 +9,32 @@ TEST_CASE("misc", "[math]")
     REQUIRE_FALSE(AlmostZero(0.1f));
 }
 
-TEST_CASE("vector", "[math]")
+TEST_CASE("vector2", "[math]")
+{
+    REQUIRE(Vector2{ 1,2 } == Vector2{ 1,2 });
+    REQUIRE(Vector2{ 1,1 } != Vector2{ 1,2 });
+
+    REQUIRE(Vector2{ 2,3 } [0] == 2);
+    REQUIRE(Vector2{ 2,3 } [1] == 3);
+
+    REQUIRE(Vector2{ 4,-3 } + Vector2{ 6,6 } == Vector2{ 10,3 });
+    REQUIRE(Vector2{ 2,-7 } - Vector2{ 1,1 } == Vector2{ 1,-8 });
+    REQUIRE(Vector2{ 3,1 } *Vector2{ 2,3 } == Vector2{ 6,3 });
+    REQUIRE(Vector2{ 6,3 } / Vector2{ 2,3 } == Vector2{ 3,1 });
+
+    REQUIRE(Vector2{ 1,3 } *2 == Vector2{ 2,6 });
+    REQUIRE(Vector2{ 2,6 } / 2 == Vector2{ 1,3 });
+
+    REQUIRE(Vector2{ 0,1 }.Cross(Vector2{ 1,0 }) == -1);
+    REQUIRE(Vector2{ 1,0 }.Cross(Vector2{ 1,0 }) == 0);
+    REQUIRE(Vector2{ 1,0 }.Cross(Vector2{ 0,1 }) == 1);
+
+    REQUIRE(Vector2{ 0,2 }.Dot(Vector2{ 0,3 }) == 6);
+    REQUIRE(Vector2{ 1,0 }.Dot(Vector2{ 0,1 }) == 0);
+    REQUIRE(Vector2{ 3,7 }.Dot(Vector2{ 2,4 }) == 34);
+}
+
+TEST_CASE("vector3", "[math]")
 {
     REQUIRE(Vector3{ 1,2,3 } == Vector3{ 1,2,3 });
     REQUIRE(Vector3{ 1,2,4 } != Vector3{ 1,2,5 });

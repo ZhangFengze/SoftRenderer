@@ -13,6 +13,30 @@ namespace render
     struct Vector;
 
     template<>
+    struct Vector<2>
+    {
+        union
+        {
+            float data[2];
+            struct { float x, y; };
+            struct { float u, v; };
+        };
+
+        float& operator[](std::size_t idx) { return data[idx]; }
+        float operator[](std::size_t idx) const { return data[idx]; }
+
+        float Cross(const Vector<2>& other) const
+        {
+            return x * other.y - y * other.x;
+        }
+
+        float Dot(const Vector<2>& other) const
+        {
+            return x * other.x + y * other.y;
+        }
+    };
+
+    template<>
     struct Vector<3>
     {
         union
@@ -113,5 +137,6 @@ namespace render
         return v;
     }
 
+    using Vector2 = Vector<2>;
     using Vector3 = Vector<3>;
 }
