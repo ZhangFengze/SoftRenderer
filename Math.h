@@ -4,16 +4,39 @@
 namespace render
 {
     template<int N>
-    struct Vector
+    struct Vector;
+
+    template<>
+    struct Vector<3>
     {
-        float data[N];
+        union
+        {
+            float data[3];
+            struct { float x, y, z; };
+            struct { float r, g, b; };
+        };
+
         float& operator[](std::size_t idx) { return data[idx]; }
         float operator[](std::size_t idx) const { return data[idx]; }
-        bool operator==(const Vector<N>&) const = default;
     };
 
+    template<int N>
+    bool operator==(const Vector<N>& left, const Vector<N>& right)
+    {
+        for (int i = 0;i < N;++i)
+            if (left[i] != right[i])
+                return false;
+        return true;
+    }
+
+    template<int N>
+    bool operator!=(const Vector<N>& left, const Vector<N>& right)
+    {
+        return !(left == right);
+    }
+
     template<int N, typename BinaryOperation>
-    Vector<N> ElementwiseOP(const Vector<N>& left, const Vector<N>& right, BinaryOperation op)
+    Vector<N> Elementwise(const Vector<N>& left, const Vector<N>& right, BinaryOperation op)
     {
         Vector<N> result;
         for (int i = 0;i < N;++i)
@@ -24,25 +47,25 @@ namespace render
     template<int N>
     Vector<N> operator+(const Vector<N>& left, const Vector<N>& right)
     {
-        return ElementwiseOP(left, right, std::plus{});
+        return Elementwise(left, right, std::plus{});
     }
 
     template<int N>
     Vector<N> operator-(const Vector<N>& left, const Vector<N>& right)
     {
-        return ElementwiseOP(left, right, std::minus{});
+        return Elementwise(left, right, std::minus{});
     }
 
     template<int N>
     Vector<N> operator*(const Vector<N>& left, const Vector<N>& right)
     {
-        return ElementwiseOP(left, right, std::multiplies{});
+        return Elementwise(left, right, std::multiplies{});
     }
 
     template<int N>
     Vector<N> operator/(const Vector<N>& left, const Vector<N>& right)
     {
-        return ElementwiseOP(left, right, std::divides{});
+        return Elementwise(left, right, std::divides{});
     }
 
     using Vector3 = Vector<3>;
