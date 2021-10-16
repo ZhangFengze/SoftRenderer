@@ -4,6 +4,8 @@
 using namespace render;
 
 TEST_CASE("test", "[math]") {
+    REQUIRE(Vector3{1,2,3}==Vector3{1,2,3});
+    REQUIRE(Vector3{1,2,4}!=Vector3{1,2,5});
 
     REQUIRE(Vector3{ 1,2,3 } [0] == 1);
     REQUIRE(Vector3{ 1,2,3 } [1] == 2);
