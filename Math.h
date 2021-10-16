@@ -1,8 +1,14 @@
 #pragma once
+#include <limits>
 #include <functional>
 
 namespace render
 {
+    bool AlmostZero(float f)
+    {
+        return std::abs(f) < std::numeric_limits<float>::epsilon();
+    }
+
     template<int N>
     struct Vector;
 
@@ -15,6 +21,21 @@ namespace render
             struct { float x, y, z; };
             struct { float r, g, b; };
         };
+
+        Vector<3>& operator*=(float f)
+        {
+            for (float& e : data)
+                e *= f;
+            return *this;
+        }
+
+        Vector<3>& operator/=(float f)
+        {
+            assert(!AlmostZero(f));
+            for (float& e : data)
+                e /= f;
+            return *this;
+        }
 
         float& operator[](std::size_t idx) { return data[idx]; }
         float operator[](std::size_t idx) const { return data[idx]; }
@@ -76,6 +97,20 @@ namespace render
     Vector<N> operator/(const Vector<N>& left, const Vector<N>& right)
     {
         return Elementwise(left, right, std::divides{});
+    }
+
+    template<int N>
+    Vector<N> operator*(Vector<N> v, float f)
+    {
+        v *= f;
+        return v;
+    }
+
+    template<int N>
+    Vector<N> operator/(Vector<N> v, float f)
+    {
+        v /= f;
+        return v;
     }
 
     using Vector3 = Vector<3>;
