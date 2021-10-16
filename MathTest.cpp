@@ -3,7 +3,7 @@
 
 using namespace render;
 
-TEST_CASE("misc","[math]")
+TEST_CASE("misc", "[math]")
 {
     REQUIRE(AlmostZero(0));
     REQUIRE_FALSE(AlmostZero(0.1f));
@@ -11,8 +11,8 @@ TEST_CASE("misc","[math]")
 
 TEST_CASE("vector", "[math]")
 {
-    REQUIRE(Vector3{1,2,3}==Vector3{1,2,3});
-    REQUIRE(Vector3{1,2,4}!=Vector3{1,2,5});
+    REQUIRE(Vector3{ 1,2,3 } == Vector3{ 1,2,3 });
+    REQUIRE(Vector3{ 1,2,4 } != Vector3{ 1,2,5 });
 
     REQUIRE(Vector3{ 1,2,3 } [0] == 1);
     REQUIRE(Vector3{ 1,2,3 } [1] == 2);
@@ -23,8 +23,8 @@ TEST_CASE("vector", "[math]")
     REQUIRE(Vector3{ 3,-2,10.6f } *Vector3{ 3,4,2 } == Vector3{ 9,-8,21.2f });
     REQUIRE(Vector3{ 12,12,12 } / Vector3{ 3,4,2 } == Vector3{ 4,3,6 });
 
-    REQUIRE(Vector3{ 1,2,3 } * 3 == Vector3{3,6,9});
-    REQUIRE(Vector3{ 3,6,9 } / 3 == Vector3{1,2,3});
+    REQUIRE(Vector3{ 1,2,3 } *3 == Vector3{ 3,6,9 });
+    REQUIRE(Vector3{ 3,6,9 } / 3 == Vector3{ 1,2,3 });
 
     REQUIRE(Vector3{ 0,0,1 }.Cross(Vector3{ 0,0,1 }) == Vector3{ 0,0,0 });
     REQUIRE(Vector3{ 0,0,1 }.Cross(Vector3{ 1,0,0 }) == Vector3{ 0,1,0 });
