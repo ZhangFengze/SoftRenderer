@@ -12,6 +12,10 @@ namespace render
     template<size_t N>
     struct Vector;
 
+    using Vector2 = Vector<2>;
+    using Vector3 = Vector<3>;
+    using Vector4 = Vector<4>;
+
     template<size_t N>
     Vector<N>& operator*=(Vector<N>& v, float f)
     {
@@ -110,9 +114,9 @@ namespace render
 
         float& operator[](std::size_t idx) { return data[idx]; }
         float operator[](std::size_t idx) const { return data[idx]; }
-        float Dot(const Vector<2>& other) const { return render::Dot(*this, other); }
+        float Dot(const Vector2& other) const { return render::Dot(*this, other); }
 
-        float Cross(const Vector<2>& other) const
+        float Cross(const Vector2& other) const
         {
             return x * other.y - y * other.x;
         }
@@ -130,9 +134,9 @@ namespace render
 
         float& operator[](std::size_t idx) { return data[idx]; }
         float operator[](std::size_t idx) const { return data[idx]; }
-        float Dot(const Vector<3>& other) const { return render::Dot(*this, other); }
+        float Dot(const Vector3& other) const { return render::Dot(*this, other); }
 
-        Vector<3> Cross(const Vector<3>& other) const
+        Vector<3> Cross(const Vector3& other) const
         {
             return { y * other.z - z * other.y, z * other.x - x * other.z,x * other.y - y * other.x };
         }
@@ -150,10 +154,6 @@ namespace render
 
         float& operator[](std::size_t idx) { return data[idx]; }
         float operator[](std::size_t idx) const { return data[idx]; }
-        float Dot(const Vector<4>& other) const { return render::Dot(*this, other); }
+        float Dot(const Vector4& other) const { return render::Dot(*this, other); }
     };
-
-    using Vector2 = Vector<2>;
-    using Vector3 = Vector<3>;
-    using Vector4 = Vector<4>;
 }
