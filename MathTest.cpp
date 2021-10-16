@@ -18,4 +18,6 @@ TEST_CASE("test", "[math]") {
 
     REQUIRE(Vector3{ 0,0,1 }.Cross(Vector3{ 1,0,0 }) == Vector3{ 0,1,0 });
     REQUIRE(Vector3{ 0,1,0 }.Cross(Vector3{ 0,0,1 }) == Vector3{ 1,0,0 });
+
+    REQUIRE(Vector3{ 1,2,3 }.Dot(Vector3{ 1,2,3 }) == 14);
 }
