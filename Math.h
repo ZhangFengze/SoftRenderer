@@ -22,21 +22,6 @@ namespace render
             struct { float r, g, b; };
         };
 
-        Vector<3>& operator*=(float f)
-        {
-            for (float& e : data)
-                e *= f;
-            return *this;
-        }
-
-        Vector<3>& operator/=(float f)
-        {
-            assert(!AlmostZero(f));
-            for (float& e : data)
-                e /= f;
-            return *this;
-        }
-
         float& operator[](std::size_t idx) { return data[idx]; }
         float operator[](std::size_t idx) const { return data[idx]; }
 
@@ -50,6 +35,21 @@ namespace render
             return x * other.x + y * other.y + z * other.z;
         }
     };
+
+    template<int N>
+    Vector<N>& operator*=(Vector<N>& v, float f)
+    {
+        for (float& e : v.data)
+            e *= f;
+        return v;
+    }
+
+    template<int N>
+    Vector<N>& operator/=(Vector<N>& v, float f)
+    {
+        assert(!AlmostZero(f));
+        return v *= (1.f / f);
+    }
 
     template<int N>
     bool operator==(const Vector<N>& left, const Vector<N>& right)
