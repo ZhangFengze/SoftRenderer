@@ -9,6 +9,12 @@ namespace render
         return std::abs(f) < std::numeric_limits<float>::epsilon();
     }
 
+    template<typename T>
+    T Clamp(T v, T min, T max)
+    {
+        return std::max(min, std::min(v, max));
+    }
+
     template<size_t N>
     struct Vector;
 

@@ -7,6 +7,9 @@ TEST_CASE("misc", "[math]")
 {
     REQUIRE(AlmostZero(0));
     REQUIRE_FALSE(AlmostZero(0.1f));
+
+    REQUIRE(Clamp(2.3f, 0.f, 2.f) == 2.f);
+    REQUIRE(Clamp(-3.f, 0.f, 2.f) == 0.f);
 }
 
 TEST_CASE("vector2", "[math]")
