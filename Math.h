@@ -66,8 +66,8 @@ namespace render
         return !(left == right);
     }
 
-    template<size_t N, typename BinaryOperation>
-    Vector<N> Elementwise(const Vector<N>& left, const Vector<N>& right, BinaryOperation op)
+    template<size_t N, typename OP>
+    Vector<N> Elementwise(const Vector<N>& left, const Vector<N>& right, OP op)
     {
         Vector<N> result;
         for (int i = 0;i < N;++i)
