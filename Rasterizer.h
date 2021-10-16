@@ -64,7 +64,7 @@ namespace render
                 float barycentricC = 1 - barycentricA - barycentricB;
                 if (barycentricC < 0 || barycentricC>1)
                     continue;
-                func({ x,y }, { barycentricA,barycentricB,barycentricC });
+                func(p, { barycentricA,barycentricB,barycentricC });
             }
         }
     }
