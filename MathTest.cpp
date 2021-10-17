@@ -89,6 +89,33 @@ TEST_CASE("vector4", "[math]")
     REQUIRE(Vector4{ 1,2,3,4 }.Dot(Vector4{ 1,2,3,4 }) == 30);
 }
 
+TEST_CASE("matrix4x4 access", "[math]")
+{
+    REQUIRE(
+        Matrix44
+        {
+            1,2,3,4,
+            5,6,7,8,
+            9,8,7,6,
+            5,4,3,2
+        }.Row(3)
+        ==
+        Vector4{ 5,4,3,2 }
+    );
+
+    REQUIRE(
+        Matrix44
+        {
+            1,2,3,4,
+            5,6,7,8,
+            9,8,7,6,
+            5,4,3,2
+        }.Col(2)
+        ==
+        Vector4{ 3,7,7,3 }
+    );
+}
+
 TEST_CASE("matrix4x4 comparison", "[math]")
 {
     REQUIRE(
