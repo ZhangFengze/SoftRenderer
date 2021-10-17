@@ -169,4 +169,105 @@ namespace render
         float operator[](std::size_t idx) const { return data[idx]; }
         float Dot(const Vector4& other) const { return render::Dot(*this, other); }
     };
+
+    template<size_t N>
+    struct Matrix
+    {
+        float data[N][N];
+
+        Vector<N> Row(size_t row) const
+        {
+            Vector<N> result;
+            for (size_t col = 0;col < N;++col)
+                result[col] = data[row][col];
+            return result;
+        }
+
+        Vector<N> Col(size_t col) const
+        {
+            Vector<N> result;
+            for (size_t row = 0;row < N;++row)
+                result[row] = data[row][col];
+            return result;
+        }
+    };
+
+    using Matrix44 = Matrix<4>;
+    using Matrix33 = Matrix<3>;
+    using Matrix22 = Matrix<3>;
+
+    template<size_t N>
+    bool operator== (const Matrix<N>& left, const Matrix<N>& right)
+    {
+        for (size_t row = 0;row < N;++row)
+            for (size_t col = 0;col < N;++col)
+                if (left.data[row][col] != right.data[row][col])
+                    return false;
+        return true;
+    }
+
+    template<size_t N>
+    bool operator!= (const Matrix<N>& left, const Matrix<N>& right)
+    {
+        return !(left == right);
+    }
+
+    template<size_t N>
+    Matrix<N> operator- (const Matrix<N>& m)
+    {
+        Matrix<N> result;
+        for (size_t row = 0;row < N;++row)
+            for (size_t col = 0;col < N;++col)
+                result.data[row][col] = -m.data[row][col];
+        return result;
+    }
+
+    template<size_t N>
+    Matrix<N> operator+ (const Matrix<N>& left, const Matrix<N>& right)
+    {
+        Matrix<N> result;
+        for (size_t row = 0;row < N;++row)
+            for (size_t col = 0;col < N;++col)
+                result.data[row][col] = left.data[row][col] + right.data[row][col];
+        return result;
+    }
+
+    template<size_t N>
+    Matrix<N> operator- (const Matrix<N>& left, const Matrix<N>& right)
+    {
+        return left + (-right);
+    }
+
+    template<size_t N>
+    Matrix<N> operator* (const Matrix<N>& m, float f)
+    {
+        Matrix<N> result;
+        for (size_t row = 0;row < N;++row)
+            for (size_t col = 0;col < N;++col)
+                result.data[row][col] = m.data[row][col] * f;
+        return result;
+    }
+
+    template<size_t N>
+    Matrix<N> operator* (float f, const Matrix<N>& m)
+    {
+        return m * f;
+    }
+
+    template<size_t N>
+    Matrix<N> operator/ (const Matrix<N>& m, float f)
+    {
+        assert(!AlmostZero(f));
+        return m * (1.f / f);
+    }
+
+    template<size_t N>
+    Matrix<N> operator* (const Matrix<N>& left, const Matrix<N>& right)
+    {
+        Matrix<N> result;
+        for (size_t row = 0;row < N;++row)
+            for (size_t col = 0;col < N;++col)
+                result.data[row][col] = left.Row(row).Dot(right.Col(col));
+        return result;
+    }
 }
