@@ -126,6 +126,26 @@ TEST_CASE("matrix4x4 comparison", "[math]")
         });
 }
 
+TEST_CASE("- matrix4x4", "[math]")
+{
+    REQUIRE(
+        -Matrix44
+        {
+            1,2,3,4,
+            5,6,7,8,
+            9,8,7,6,
+            5,4,3,2
+        }
+        ==
+        Matrix44
+        {
+            -1,-2,-3,-4,
+            -5,-6,-7,-8,
+            -9,-8,-7,-6,
+            -5,-4,-3,-2
+        });
+}
+
 TEST_CASE("matrix4x4 +- matrix4x4", "[math]")
 {
     REQUIRE(
