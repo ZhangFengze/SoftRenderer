@@ -13,4 +13,15 @@ namespace render
             0,0,0,1
         };
     }
+
+    inline Matrix44 Scale(const Vector3& t)
+    {
+        return
+        {
+            t.x,0,0,0,
+            0,t.y,0,0,
+            0,0,t.z,0,
+            0,0,0,1
+        };
+    }
 }
