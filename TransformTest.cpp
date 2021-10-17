@@ -1,3 +1,4 @@
+#include <numbers>
 #include <catch.hpp>
 #include "Transform.h"
 
@@ -11,4 +12,14 @@ TEST_CASE("translate", "[transform]")
 TEST_CASE("scale", "[transform]")
 {
     REQUIRE(Scale(Vector3{ 1,2,3 }) * Vector4 { 1, 2, 3, 1 } == Vector4{ 1, 4, 9, 1 });
+}
+
+TEST_CASE("rotate", "[transform]")
+{
+    REQUIRE(
+        AlmostEqual(
+            Rotate(Vector3{ 0,1,0 }, std::numbers::pi * 0.5f) * Vector4 { 0, 0, 1, 1 },
+            Vector4{ 1, 0, 0, 1 }
+        )
+    );
 }
