@@ -190,6 +190,15 @@ namespace render
                 result[row] = data[row][col];
             return result;
         }
+
+        static Matrix<N> Identity()
+        {
+            Matrix<N> m;
+            for (size_t row = 0;row < N;++row)
+                for (size_t col = 0;col < N;++col)
+                    m.data[row][col] = (row == col ? 1 : 0);
+            return m;
+        }
     };
 
     using Matrix44 = Matrix<4>;
