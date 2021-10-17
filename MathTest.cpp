@@ -323,6 +323,6 @@ TEST_CASE("matrix * vector", "[math]")
         *
         Vector4{ 3,-2,8,4 }
         ==
-        Vector4{ 39,	91,	91,	39 }
+        Vector4{ 39,91,91,39 }
     );
 }
