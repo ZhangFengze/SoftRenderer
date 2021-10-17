@@ -309,3 +309,20 @@ TEST_CASE("matrix4x4 * matrix4x4", "[math]")
         }
     );
 }
+
+TEST_CASE("matrix * vector", "[math]")
+{
+    REQUIRE(
+        Matrix44
+        {
+            1,2,3,4,
+            5,6,7,8,
+            9,8,7,6,
+            5,4,3,2
+        }
+        *
+        Vector4{ 3,-2,8,4 }
+        ==
+        Vector4{ 39,	91,	91,	39 }
+    );
+}

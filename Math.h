@@ -270,4 +270,13 @@ namespace render
                 result.data[row][col] = left.Row(row).Dot(right.Col(col));
         return result;
     }
+
+    template<size_t N>
+    Vector<N> operator* (const Matrix<N>& m, const Vector<N>& v)
+    {
+        Vector<N> result;
+        for (size_t row = 0;row < N;++row)
+            result[row] = m.Row(row).Dot(v);
+        return result;
+    }
 }
