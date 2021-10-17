@@ -7,6 +7,8 @@ TEST_CASE("misc", "[math]")
 {
     REQUIRE(AlmostZero(0));
     REQUIRE_FALSE(AlmostZero(0.1f));
+    REQUIRE(AlmostEqual(1.2f, 1.2f));
+    REQUIRE_FALSE(AlmostEqual(1.2f, 1.3f));
 
     REQUIRE(Clamp(2.3f, 0.f, 2.f) == 2.f);
     REQUIRE(Clamp(-3.f, 0.f, 2.f) == 0.f);
@@ -42,6 +44,9 @@ TEST_CASE("vector3", "[math]")
 {
     REQUIRE(Vector3{ 1,2,3 } == Vector3{ 1,2,3 });
     REQUIRE(Vector3{ 1,2,4 } != Vector3{ 1,2,5 });
+
+    REQUIRE(AlmostEqual(Vector3{ 1,2,3 }, Vector3{ 1,2,3 }));
+    REQUIRE_FALSE(AlmostEqual(Vector3{ 1.1f,2,3 }, Vector3{ 1,2,3 }));
 
     REQUIRE(Vector3{ 1,2,3 } [0] == 1);
     REQUIRE(Vector3{ 1,2,3 } [1] == 2);

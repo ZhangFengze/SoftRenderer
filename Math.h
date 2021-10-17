@@ -9,6 +9,11 @@ namespace render
         return std::abs(f) < std::numeric_limits<float>::epsilon();
     }
 
+    inline bool AlmostEqual(float left, float right)
+    {
+        return AlmostZero(left - right);
+    }
+
     template<typename T>
     T Clamp(T v, T min, T max)
     {
@@ -42,6 +47,15 @@ namespace render
     {
         for (int i = 0;i < N;++i)
             if (left[i] != right[i])
+                return false;
+        return true;
+    }
+
+    template<size_t N>
+    bool AlmostEqual(const Vector<N>& left, const Vector<N>& right)
+    {
+        for (size_t i = 0;i < N;++i)
+            if (!AlmostEqual(left.data[i], right.data[i]))
                 return false;
         return true;
     }
