@@ -129,6 +129,16 @@ namespace render
         return sum;
     }
 
+    template<size_t N>
+    std::ostream& operator << (std::ostream& os, const Vector<N>& v)
+    {
+        os << "{";
+        for (size_t i = 0;i < N;++i)
+            os << ((i == 0) ? "" : ",") << v[i];
+        os << "}";
+        return os;
+    }
+
     template<>
     struct Vector<2>
     {
