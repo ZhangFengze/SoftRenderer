@@ -23,3 +23,13 @@ TEST_CASE("rotate", "[transform]")
         )
     );
 }
+
+TEST_CASE("lookat", "[transform]")
+{
+    REQUIRE(
+        AlmostEqual(
+            LookAt(Vector3{ 0,10,20 }, Vector3{ 0,0,-1 }, Vector3{ 0,1,0 }) * Vector4 { 1, 0, 0, 1 },
+            Vector4{ -1,-10, 20, 1 }
+        )
+    );
+}

@@ -37,4 +37,20 @@ namespace render
             0,0,0,1
         };
     }
+
+    inline Matrix44 LookAt(const Vector3& center, const Vector3& forward, const Vector3& up = Vector3{ 0, 1, 0 })
+    {
+        Vector3 w = forward.Normalized();
+        Vector3 u = up.Cross(w).Normalized();
+        Vector3 v = w.Cross(u).Normalized();
+
+        return
+            Matrix44
+        {
+            u.x, v.x, w.x, 0,
+            u.y, v.y, w.y, 0,
+            u.z, v.z, w.z, 0,
+            0,   0,   0, 1,
+        }*Translate(-center);
+    }
 }
