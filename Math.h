@@ -28,6 +28,12 @@ namespace render
     using Vector4 = Vector<4>;
 
     template<size_t N>
+    Vector<N> operator-(const Vector<N>& v)
+    {
+        return v * -1;
+    }
+
+    template<size_t N>
     Vector<N>& operator*=(Vector<N>& v, float f)
     {
         for (float& e : v.data)

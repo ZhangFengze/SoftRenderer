@@ -22,6 +22,7 @@ TEST_CASE("vector2", "[math]")
     REQUIRE(Vector2{ 2,3 } [0] == 2);
     REQUIRE(Vector2{ 2,3 } [1] == 3);
 
+    REQUIRE(-Vector2{ 4,-3 } == Vector2{ -4,3 });
     REQUIRE(Vector2{ 4,-3 } + Vector2{ 6,6 } == Vector2{ 10,3 });
     REQUIRE(Vector2{ 2,-7 } - Vector2{ 1,1 } == Vector2{ 1,-8 });
     REQUIRE(Vector2{ 3,1 } *Vector2{ 2,3 } == Vector2{ 6,3 });
@@ -52,6 +53,7 @@ TEST_CASE("vector3", "[math]")
     REQUIRE(Vector3{ 1,2,3 } [1] == 2);
     REQUIRE(Vector3{ 1,2,3 } [2] == 3);
 
+    REQUIRE(-Vector3{ 3,4,5 } == Vector3{ -3,-4,-5 });
     REQUIRE(Vector3{ 1,1,1 } + Vector3{ 2,2,3 } == Vector3{ 3,3,4 });
     REQUIRE(Vector3{ 3,-2,10.6f } - Vector3{ 1,1,1 } == Vector3{ 2,-3,9.6f });
     REQUIRE(Vector3{ 3,-2,10.6f } *Vector3{ 3,4,2 } == Vector3{ 9,-8,21.2f });
@@ -80,6 +82,7 @@ TEST_CASE("vector4", "[math]")
     REQUIRE(Vector4{ 2,3,4,5 } [2] == 4);
     REQUIRE(Vector4{ 2,3,4,5 } [3] == 5);
 
+    REQUIRE(-Vector4{ 3,2,1,5 } == Vector4{ -3,-2,-1,-5 });
     REQUIRE(Vector4{ 1,1,1,8 } + Vector4{ 2,2,3,1 } == Vector4{ 3,3,4,9 });
     REQUIRE(Vector4{ 3,-2,10.6f,5 } - Vector4{ 1,1,1,1 } == Vector4{ 2,-3,9.6f,4 });
     REQUIRE(Vector4{ 3,-2,10.6f,5 } *Vector4{ 3,4,2,3 } == Vector4{ 9,-8,21.2f,15 });
