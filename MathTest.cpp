@@ -39,6 +39,9 @@ TEST_CASE("vector2", "[math]")
     REQUIRE(Vector2{ 0,2 }.Dot(Vector2{ 0,3 }) == 6);
     REQUIRE(Vector2{ 1,0 }.Dot(Vector2{ 0,1 }) == 0);
     REQUIRE(Vector2{ 3,7 }.Dot(Vector2{ 2,4 }) == 34);
+
+    REQUIRE(AlmostEqual(Vector2{ 3,4 }.Length(), 5));
+    REQUIRE(Vector2{ 0,5 }.Normalized() == Vector2{ 0,1 });
 }
 
 TEST_CASE("vector3", "[math]")
@@ -70,6 +73,9 @@ TEST_CASE("vector3", "[math]")
     REQUIRE(Vector3{ 1,0,0 }.Dot(Vector3{ 1,0,0 }) == 1);
     REQUIRE(Vector3{ 0,0,3 }.Dot(Vector3{ 1,0,0 }) == 0);
     REQUIRE(Vector3{ 1,2,3 }.Dot(Vector3{ 1,2,3 }) == 14);
+
+    REQUIRE(AlmostEqual(Vector3{ 1,1,1 }.Length(), std::sqrt(3)));
+    REQUIRE(Vector3{ 0,0,5 }.Normalized() == Vector3{ 0,0,1 });
 }
 
 TEST_CASE("vector4", "[math]")
@@ -95,6 +101,9 @@ TEST_CASE("vector4", "[math]")
     REQUIRE(Vector4{ 1,0,0,0 }.Dot(Vector4{ 1,0,0,0 }) == 1);
     REQUIRE(Vector4{ 0,0,3,0 }.Dot(Vector4{ 1,0,0,0 }) == 0);
     REQUIRE(Vector4{ 1,2,3,4 }.Dot(Vector4{ 1,2,3,4 }) == 30);
+
+    REQUIRE(AlmostEqual(Vector4{ 1,1,1,1 }.Length(), std::sqrt(4)));
+    REQUIRE(Vector4{ 0,0,0,5 }.Normalized() == Vector4{ 0,0,0,1 });
 }
 
 TEST_CASE("matrix4x4 access", "[math]")

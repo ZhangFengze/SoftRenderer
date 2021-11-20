@@ -136,6 +136,27 @@ namespace render
     }
 
     template<size_t N>
+    float Length(const Vector<N>& v)
+    {
+        float magnitude = 0;
+        for (int i = 0;i < N;++i)
+            magnitude += v[i] * v[i];
+        return std::sqrt(magnitude);
+    }
+
+    template<size_t N>
+    float Magnitude(const Vector<N>& v) { return Length(v); }
+
+    template<size_t N>
+    Vector<N> Normalized(const Vector<N>& v)
+    {
+        float length = Length(v);
+        if (AlmostZero(length))
+            return Vector<N>::Zero();
+        return v / length;
+    }
+
+    template<size_t N>
     std::ostream& operator << (std::ostream& os, const Vector<N>& v)
     {
         os << "{";
@@ -155,14 +176,17 @@ namespace render
             struct { float u, v; };
         };
 
+        static Vector<2> Zero() { return{ 0, 0 }; }
+
         float& operator[](std::size_t idx) { return data[idx]; }
         float operator[](std::size_t idx) const { return data[idx]; }
         float Dot(const Vector2& other) const { return render::Dot(*this, other); }
-
         float Cross(const Vector2& other) const
         {
             return x * other.y - y * other.x;
         }
+        float Length() const { return render::Length(*this); }
+        Vector<2> Normalized() const { return render::Normalized(*this); }
     };
 
     template<>
@@ -175,14 +199,17 @@ namespace render
             struct { float r, g, b; };
         };
 
+        static Vector<3> Zero() { return{ 0, 0, 0 }; }
+
         float& operator[](std::size_t idx) { return data[idx]; }
         float operator[](std::size_t idx) const { return data[idx]; }
         float Dot(const Vector3& other) const { return render::Dot(*this, other); }
-
         Vector<3> Cross(const Vector3& other) const
         {
             return { y * other.z - z * other.y, z * other.x - x * other.z,x * other.y - y * other.x };
         }
+        float Length() const { return render::Length(*this); }
+        Vector<3> Normalized() const { return render::Normalized(*this); }
     };
 
     template<>
@@ -195,9 +222,13 @@ namespace render
             struct { float r, g, b, a; };
         };
 
+        static Vector<4> Zero() { return{ 0, 0, 0, 0 }; }
+
         float& operator[](std::size_t idx) { return data[idx]; }
         float operator[](std::size_t idx) const { return data[idx]; }
         float Dot(const Vector4& other) const { return render::Dot(*this, other); }
+        float Length() const { return render::Length(*this); }
+        Vector<4> Normalized() const { return render::Normalized(*this); }
     };
 
     template<size_t N>
